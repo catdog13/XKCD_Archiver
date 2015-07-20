@@ -15,12 +15,8 @@ def current_comic_number():
 
 
 def last_downloaded():
-    result = db.query('SELECT comic_number FROM XKCD WHERE id IN (SELECT MAX(id) FROM XKCD)')
-    for row in result:
-        last_number = row['comic_number']
-        if last_number is None:
-            last_number = 0
-        return last_number
+    last_number = len(table)
+    return last_number
 
 
 def downloader(link):
@@ -35,7 +31,7 @@ def downloader(link):
         output = 'pics\\' + '#' + str(comic['num']) + ' ' + comic_title + file_type
         wget.download(comic['img'], output)
         table.insert(dict(comic_number=comic['num'], comic_title=comic['title'], comic_url=comic['img']))
-        print('#' + str(comic['num']) + ' is done')
+        # print('#' + str(comic['num']) + ' is done')
 
 
 def main_loop():
