@@ -2,7 +2,7 @@ import requests
 import wget
 import dataset
 import re
-db = dataset.connect('sqlite:///C:\\Users\Tom\\PycharmProjects\\XKCD_Archiver\\XKCD_List.db')
+db = dataset.connect('sqlite:///C:\\Users\Tom\\Documents\\Python_Projects\\XKCD_Archiver\\XKCD_List.db')
 db_name = 'XKCD'
 table = db[db_name]
 
