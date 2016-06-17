@@ -22,8 +22,8 @@ def last_downloaded():
     return last_number
 
 
-def downloader(link):
-    url = requests.get(link)
+def downloader(download_comic_number):
+    url = requests.get('http://xkcd.com/{}/info.0.json'.format(download_comic_number))
     if url.status_code == 404:
         print("404 LOL")
     else:
@@ -45,5 +45,5 @@ def downloader(link):
 if __name__ == '__main__':
     for count in range(last_downloaded(), current_comic_number()):
         new_comic_number = str(last_downloaded() + 1)
-        downloader('http://xkcd.com/{}/info.0.json'.format(new_comic_number))
+        downloader(new_comic_number)
         sleep(1)
