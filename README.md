@@ -6,4 +6,3 @@ downloads all previously undownloaded comics
 #### Requires
 [requests](https://pypi.python.org/pypi/requests)
 [wget](https://pypi.python.org/pypi/wget)
-[dataset](https://pypi.python.org/pypi/dataset)
