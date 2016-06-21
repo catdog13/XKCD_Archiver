@@ -30,15 +30,17 @@ def downloader(download_comic_number):
         comic = url.json()
         comic_url = comic['img']
         comic_number = str(comic['num'])
-        file_type = comic['img'][-4:]
+        file_type = os.path.splitext(comic['img'])[-1]
         comic_title = re.sub('[^a-zA-Z0-9\n\.]', ' ', comic['title'])
         if comic_url.endswith(file_types):
-            output = '{}\\#{} {}{}'.format(pic_dir, comic_number, comic_title, file_type)
+            pic_name = '#{} {}{}'.format(comic_number, comic_title, file_type)
+            output = os.path.join(pic_dir, pic_name)
             wget.download(comic_url, output)
             print('#{} is done'.format(comic_number))
         else:
             print('comic #{} doest not have a downloadable url'.format(comic_number))
-            output = '{}\\#{} {}.png'.format(pic_dir, comic_number, comic_title)
+            pic_name = '#{} {}.png'.format(comic_number, comic_title)
+            output = os.path.join(pic_dir, pic_name)
             wget.download('http://i.imgur.com/removed.png', output)
 
 
