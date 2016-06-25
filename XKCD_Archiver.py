@@ -17,8 +17,13 @@ def current_comic_number():
 def last_downloaded():
     pic_list = []
     for comics in os.scandir(pic_dir):
-        pic_list.append(comics.name)
-    last_number = len(pic_list)
+        if 'Thumbs.db' not in comics.name:
+            pic_number = (comics.name[1:]).split(' ')[0]
+            pic_list.append(int(pic_number))
+    if len(pic_list) is 0:
+        last_number = 0
+    else:
+        last_number = max(pic_list)
     return last_number
 
 
