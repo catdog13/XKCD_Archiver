@@ -1,10 +1,17 @@
 import requests
-import wget
 import re
 from time import sleep
 import os
+
 pic_dir = r'C:\Users\Tom\Documents\Python_Projects\XKCD_Archiver\pics'
 file_types = ('.png', '.jpg', '.gif')
+
+
+def download_file(download_url, folder_structure, file_name):
+    image_file = requests.get(download_url, stream=True)
+    file_path = os.path.join(folder_structure, file_name)
+    with open(file_path, 'wb') as f:
+        f.write(image_file.content)
 
 
 def current_comic_number():
@@ -39,14 +46,12 @@ def downloader(download_comic_number):
         comic_title = re.sub('[^a-zA-Z0-9\n\.]', ' ', comic['title'])
         if comic_url.endswith(file_types):
             pic_name = '#{} {}{}'.format(comic_number, comic_title, file_type)
-            output = os.path.join(pic_dir, pic_name)
-            wget.download(comic_url, output)
+            download_file(comic_url, pic_dir, pic_name)
             print('#{} is done'.format(comic_number))
         else:
             print('comic #{} doest not have a downloadable url'.format(comic_number))
             pic_name = '#{} {}.png'.format(comic_number, comic_title)
-            output = os.path.join(pic_dir, pic_name)
-            wget.download('http://i.imgur.com/removed.png', output)
+            download_file('http://i.imgur.com/removed.png', pic_dir, pic_name)
 
 
 if __name__ == '__main__':
